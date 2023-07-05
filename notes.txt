@@ -1,0 +1,26 @@
+import winrm
+
+# Remote hostnames
+remote_hostnames = ['remote_hostname1', 'remote_hostname2', 'remote_hostname3']
+
+# WinRM connection parameters
+username = 'remote_username'
+password = 'remote_password'
+remote_file_path = 'C:\\path\\to\\remote\\file.txt'
+
+# Iterate over remote hostnames
+for hostname in remote_hostnames:
+    # Create a WinRM session
+    session = winrm.Session(hostname, auth=(username, password))
+    
+    # Run PowerShell command to read the file content
+    command = f'(Get-Content "{remote_file_path}") -join "`n"'
+    result = session.run_ps(command)
+    
+    # Extract the file content from the command result
+    file_content = result.std_out.decode('utf-8')
+    
+    # Print the file content along with the hostname
+    print(f'File content on {hostname}:')
+    print(file_content)
+    print('-' * 50)
