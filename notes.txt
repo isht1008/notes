@@ -1,4 +1,4 @@
-import winrm
+import winrm 
 
 # Remote hostnames
 remote_hostnames = ['remote_hostname1', 'remote_hostname2', 'remote_hostname3']
